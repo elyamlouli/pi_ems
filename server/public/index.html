@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Hello World!</title>
+    <link rel="stylesheet" href="./style.css">
+    <script type="text/javascript" src="./index.js" defer></script>
+</head>
+
+<body>
+    <h1>Parameters</h1>
+    <label>API key</label>
+    <input type="text" id="api-key">
+    <label>Organization</label>
+    <input type="text" id="organization-id">
+    <label type="text">Application</label>
+    <input type="text" id="application-id">
+    <label type="text">Device</label>
+    <input type="text" id="device-id">
+    <label type="text">NFC Uid</label>
+    <input type="text" id="nfc-id">
+
+    <h1 onclick="get_key()">Login</h1>
+    <label>Email:</label>
+    <input type="text" id="email">
+    <label>Password:</label>
+    <input type="password" id="password">
+
+    <h1 onclick="get_organizations()">Organizations</h1>
+    <ul id="list-organizations"></ul>
+
+    <h1 onclick="get_applications()">Applications</h1>
+    <ul id="list-applications"></ul>
+
+    <h1 onclick="get_devices()">Devices</h1>
+    <ul id="list-devices"></ul>
+
+    <h1 onclick="send_nfc()">Send NFC Uid</h1>
+</body>
+
+</html>

@@ -1,10 +1,6 @@
-# Installation
-
+# Run for development
 ```
 npm install
-```
-
-# Developpement
-```
-npm run dev
+docker-compose build
+docker-compose up
 ```

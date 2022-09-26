@@ -1,18 +1,18 @@
-import dotenv from 'dotenv'
+import dotenv from 'dotenv';
 dotenv.config();
 
 const config = {
-    db : {
+    db: {
         port: Number(process.env.DB_PORT),
         username: String(process.env.DB_USER),
         password: String(process.env.DB_PASSWORD),
         host: String(process.env.DB_HOST),
-        database: String(process.env.DB_NAME),        
+        database: String(process.env.DB_NAME),
     },
     server: {
         port: Number(process.env.SERVER_PORT)
     },
-    bcrypt : {
+    bcrypt: {
         saltWorkFactor: 10,
     },
     jwt: {
@@ -23,6 +23,6 @@ const config = {
         accessTokenTtl: '15m',
         refreshTokenTtl: '1y',
     }
-}
+};
 
 export default config;

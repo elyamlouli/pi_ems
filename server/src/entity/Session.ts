@@ -4,26 +4,26 @@ import User from './User';
 @Entity()
 class Session extends BaseEntity {
     @PrimaryGeneratedColumn()
-    id: number
+    id: number;
 
     @Column("int", { nullable: true })
     userId: number;
 
     @ManyToOne(() => User, (user) => user.id)
     @JoinColumn({ name: "userId" })
-    user: User
+    user: User;
 
     @Column({ default: true })
-    valid: boolean
+    valid: boolean;
 
     @Column()
-    userAgent: string
+    userAgent: string;
 
     @CreateDateColumn()
-    createdAt: Date
+    createdAt: Date;
 
     @UpdateDateColumn()
-    updatedAt: Date
+    updatedAt: Date;
 
 }
 

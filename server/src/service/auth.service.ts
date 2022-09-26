@@ -8,7 +8,7 @@ import config from '../config';
 
 
 export async function createSession(userId: number, userAgent: string) {
-    const user = await userRepository.findOneByOrFail({ id: userId })
+    const user = await userRepository.findOneByOrFail({ id: userId });
     const session = sessionRepository.create({
         user,
         userAgent,
@@ -21,10 +21,10 @@ export async function findSessions(query: FindManyOptions<Session>) {
 }
 
 export async function updateSession(query: FindOptionsWhere<Session>, update: DeepPartial<Session>) {
-    return sessionRepository.update(query, update)
+    return sessionRepository.update(query, update);
 }
 
-export async function reIssueAccessToken({ refreshToken }: { refreshToken: string }) {
+export async function reIssueAccessToken({ refreshToken }: { refreshToken: string; }) {
     const { decoded } = verifyJwt(refreshToken, 'refreshTokenPublicKey');
 
     if (!decoded || !get(decoded, 'session')) { return false; }

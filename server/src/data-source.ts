@@ -1,8 +1,8 @@
-import 'reflect-metadata'
-import { DataSource } from 'typeorm'
-import config from './config'
-import Session from './entity/Session'
-import User from './entity/User'
+import 'reflect-metadata';
+import { DataSource } from 'typeorm';
+import config from './config';
+import Session from './entity/Session';
+import User from './entity/User';
 
 const appDataSource = new DataSource({
     type: "postgres",
@@ -16,6 +16,6 @@ const appDataSource = new DataSource({
     entities: [User, Session],
     subscribers: [],
     migrations: [],
-})
+});
 
 export default appDataSource;

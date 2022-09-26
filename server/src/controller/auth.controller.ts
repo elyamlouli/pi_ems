@@ -34,9 +34,9 @@ export async function createSessionHandler(req: Request<{}, {}, CreateSessionInp
 }
 
 export async function getSessionsHandler(req: Request, res: Response) {
-    const userId = res.locals.user.id
+    const userId = res.locals.user.id;
 
-    const sessions = await findSessions({ where: { user: { id: userId }, valid: true } })
+    const sessions = await findSessions({ where: { user: { id: userId }, valid: true } });
 
     return res.send(sessions);
 }
@@ -49,5 +49,5 @@ export async function deleteSessionHandler(req: Request, res: Response) {
     return res.send({
         accessToken: null,
         refreshToken: null
-    })
+    });
 }

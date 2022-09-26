@@ -1,5 +1,5 @@
-import { Request, Response, NextFunction } from 'express'
-import { AnyZodObject } from 'zod'
+import { Request, Response, NextFunction } from 'express';
+import { AnyZodObject } from 'zod';
 
 const validateRessource = (schema: AnyZodObject) => (req: Request, res: Response, next: NextFunction) => {
     try {
@@ -10,8 +10,8 @@ const validateRessource = (schema: AnyZodObject) => (req: Request, res: Response
         });
         next();
     } catch (e: any) {
-        return res.status(400).send(e.errors)
+        return res.status(400).send(e.errors);
     }
-}
+};
 
 export default validateRessource;

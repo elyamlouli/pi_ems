@@ -1,26 +1,26 @@
 import { Column, BaseEntity, Entity, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn, BeforeUpdate, BeforeInsert } from 'typeorm';
-import bcrypt from 'bcrypt'
+import bcrypt from 'bcrypt';
 import config from '../config';
 
 @Entity()
 class User extends BaseEntity {
     @PrimaryGeneratedColumn()
-    id: number
+    id: number;
 
     @Column({ unique: true })
-    email: string
+    email: string;
 
     @Column()
-    name: string
+    name: string;
 
     @Column()
-    password: string
+    password: string;
 
     @CreateDateColumn()
-    createdAt: Date
+    createdAt: Date;
 
     @UpdateDateColumn()
-    updatedAt: Date
+    updatedAt: Date;
 
     @BeforeUpdate()
     async beforeUpdate() {

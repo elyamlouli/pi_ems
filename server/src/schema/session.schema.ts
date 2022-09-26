@@ -9,6 +9,6 @@ export const createSessionSchema = object({
             required_error: 'Password is required'
         }),
     })
-})
+});
 
 export type CreateSessionInput = TypeOf<typeof createSessionSchema>['body'];

@@ -18,7 +18,7 @@ export async function validatePassword({
     password
 }: {
     email: string,
-    password: string
+    password: string;
 }): Promise<Omit<User, 'password'> | false> {
     const user = await userRepository.findOneBy({ email: email });
     if (!user) { return false; }
@@ -26,7 +26,7 @@ export async function validatePassword({
     const isValid = await user.comparePassword(password);
     if (!isValid) { return false; }
 
-    return omit(user, 'password')
+    return omit(user, 'password');
 }
 
 export async function findUser(query: FindOptionsWhere<User>) {

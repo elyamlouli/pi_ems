@@ -22,6 +22,10 @@ const config = {
         refreshTokenPrivateKey: String(process.env.REFRESH_PRIVATE_KEY),
         accessTokenTtl: '15m',
         refreshTokenTtl: '1y',
+    },
+    chirpstack: {
+        orgaId: String(process.env.CHIRPSTACK_ORGANIZATION_ID),
+        orgaToken: String(process.env.CHIRPSTACK_ORGANIZATION_TOKEN),
     }
 };
 

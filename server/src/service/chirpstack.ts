@@ -1,36 +1,49 @@
 import axios from 'axios';
-
-const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhcGlfa2V5X2lkIjoiY2MyMTQ0YWItZWIwNi00MzEwLThhZDQtNTdjOWZhNmI0Y2M5IiwiYXVkIjoiYXMiLCJpc3MiOiJhcyIsIm5iZiI6MTY0NzI2Nzg1Miwic3ViIjoiYXBpX2tleSJ9.eE8XljZZFxuu8--z9Ios4DuvMjFFvpN5W9WM7GdFVUc";
-const orga_id = 116;
+import config from '../config';
 
 export async function getApplicatons() {
-    const url = `https://inetlab-lorawan.icube.unistra.fr/api/applications?limit=10&organizationID=${orga_id}`;
-    const config = {
+    const url = `https://inetlab-lorawan.icube.unistra.fr/api/applications?limit=10&organizationID=${config.chirpstack.orgaId}`;
+    const conf = {
         headers: {
             'Accept': 'application/json',
-            'Grpc-Metadata-Authorization': `Bearer ${token}`
+            'Grpc-Metadata-Authorization': `Bearer ${config.chirpstack.orgaToken}`
         },
     };
-    try {
-        const res = await axios.get(url, config);
-        console.log(res.data);
-    } catch (e: any) {
-        console.log(e.response);
-    }
+    return axios.get(url, conf);
 }
 
-export async function getDevices(app_id: number) {
-    const url = `https://inetlab-lorawan.icube.unistra.fr/api/devices?limit=10&applicationID=${app_id}`;
-    const config = {
+export async function getDevices(appId: number) {
+    const url = `https://inetlab-lorawan.icube.unistra.fr/api/devices?limit=10&applicationID=${appId}`;
+    const conf = {
         headers: {
             'Accept': 'application/json',
-            'Grpc-Metadata-Authorization': `Bearer ${token}`
+            'Grpc-Metadata-Authorization': `Bearer ${config.chirpstack.orgaToken}`
         },
     };
-    try {
-        const res = await axios.get(url, config);
-        console.log(res.data);
-    } catch (e: any) {
-        console.log(e.response);
-    }
+    return axios.get(url, conf);
+}
+
+export async function addNfcCardToDevice(devEui: string, nfcUID: string) {
+    const url = `https://inetlab-lorawan.icube.unistra.fr/api/devices/${devEui}/queue`;
+    const conf = {
+        headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json',
+            'Grpc-Metadata-Authorization': `Bearer ${config.chirpstack.orgaToken}`,
+        },
+    };
+    const obj = {
+        'newNfcUid': {
+            '1': nfcUID
+        }
+    };
+    const data = {
+        'deviceQueueItem': {
+            'confirmed': true,
+            'devEUI': devEui,
+            'fPort': 3,
+            'jsonObject': JSON.stringify(obj),
+        }
+    };
+    return axios.post(url, data, conf);
 }

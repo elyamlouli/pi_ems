@@ -1,5 +1,4 @@
-import React from "react";
-import { Link } from "react-router-dom";
+const { Link } = require("react-router-dom");
 
 const ListDevices = () => {
     return (

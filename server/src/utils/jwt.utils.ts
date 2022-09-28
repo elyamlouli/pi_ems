@@ -1,5 +1,5 @@
-import jwt from 'jsonwebtoken'
-import config from '../config'
+import jwt from 'jsonwebtoken';
+import config from '../config';
 
 export function signJwt(
     object: Object,
@@ -14,19 +14,11 @@ export function signJwt(
 }
 
 export function verifyJwt(token: string, keyName: "accessTokenPublicKey" | "refreshTokenPublicKey") {
+    const publicKey = config.jwt[keyName];
     try {
-        const publicKey =  config.jwt[keyName];
         const decoded = jwt.verify(token, publicKey);
-        return {
-            valid: true,
-            expired: false,
-            decoded,
-        }
+        return decoded;
     } catch (e: any) {
-        return {
-            valid: false,
-            expired: e.message === 'jwt expired',
-            decoded: null,
-        }
+        return null;
     }
 }

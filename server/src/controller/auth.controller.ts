@@ -1,7 +1,8 @@
 import { Request, Response } from 'express';
-import { createSession, findSessions, updateSession } from '../service/auth.service';
+import { get } from 'lodash';
+import { createSession, findSessions, refreshAccessToken, updateSession } from '../service/auth.service';
 import { validatePassword } from '../service/user.service';
-import { signJwt } from '../utils/jwt.utils';
+import { signJwt, verifyJwt } from '../utils/jwt.utils';
 import config from '../config';
 import { CreateSessionInput } from '../schema/session.schema';
 
@@ -9,7 +10,7 @@ export async function createSessionHandler(req: Request<{}, {}, CreateSessionInp
     // validate user password
     const user = await validatePassword(req.body);
     if (!user) {
-        return res.status(401).send("Invalid email or password");
+        return res.status(401).send('Invalid email or password');
     }
 
     // create session
@@ -50,4 +51,18 @@ export async function deleteSessionHandler(req: Request, res: Response) {
         accessToken: null,
         refreshToken: null
     });
+}
+
+export async function refreshAccessTokenHandler(req: Request, res: Response) {
+    const refreshToken = get(req, 'headers.x-refresh');
+    if (!refreshToken) {
+        return res.status(400).send('Could not refresh access token');
+    }
+
+    const accessToken = await refreshAccessToken(refreshToken);
+    if (!accessToken) {
+        return res.status(400).send('Could not refresh access token');
+    }
+
+    return res.status(200).send({ accessToken });
 }

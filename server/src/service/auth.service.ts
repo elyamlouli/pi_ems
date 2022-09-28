@@ -24,8 +24,8 @@ export async function updateSession(query: FindOptionsWhere<Session>, update: De
     return sessionRepository.update(query, update);
 }
 
-export async function reIssueAccessToken({ refreshToken }: { refreshToken: string; }) {
-    const { decoded } = verifyJwt(refreshToken, 'refreshTokenPublicKey');
+export async function refreshAccessToken(refreshToken: string) {
+    const decoded  = verifyJwt(refreshToken, 'refreshTokenPublicKey');
 
     if (!decoded || !get(decoded, 'session')) { return false; }
 

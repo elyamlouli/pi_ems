@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 
 
 class LoginForm extends React.Component{
@@ -18,11 +18,18 @@ const FormHeader = props => (
   
   
 const Form = props => {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+
+  const handleChange = (setData) => (event) => {
+    setData(event.target.value);
+  }
+
   return (
     <div>
-      <FormInput description="Email" placeholder="Enter your email" type="email" id="email" />
-      <FormInput description="Password" placeholder="Enter your password" type="password" id="password" />
-      <FormButton title="Log in" onClick={get_key} />
+      <FormInput description="Email" placeholder="Enter your email" type="email" onChange={handleChange(setEmail)} />
+      <FormInput description="Password" placeholder="Enter your password" type="password" onChange={handleChange(setPassword)} />
+      <FormButton title="Log in" onClick={get_key(email, password)} />
     </div>
   );
 };
@@ -41,11 +48,11 @@ const FormInput = props => (
 );
 
 
-async function get_key() {
-  const url = 'http://localhost:5000/api/login/';
+async function get_key(email, password) {
+  const url = 'http://localhost:5000/api/sessions/';
   const body = {
-      email: document.getElementById('email').value,
-      password: document.getElementById('password').value
+      email,
+      password
   };
   try {
     const response = await fetch(url, {

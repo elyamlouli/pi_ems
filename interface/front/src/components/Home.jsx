@@ -8,12 +8,12 @@ const Home = () => {
       <br />
       <ul>
         <li>
-          {/* Endpoint to route to About component */}
-          <Link to="/about">About</Link>
+            {/* Endpoint to route to Applications List component */}
+            <Link to="/listapplications">Applications List</Link>
         </li>
         <li>
-            {/* Endpoint to route to Devices List component */}
-            <Link to="/listdevices">Devices List</Link>
+          {/* Endpoint to route to About component */}
+          <Link to="/about">About</Link>
         </li>
         <li>
           {/* Endpoint to route to Contact Us component */}

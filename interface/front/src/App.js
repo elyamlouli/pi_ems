@@ -8,6 +8,7 @@ import Home from "./components/Home"
 import About from "./components/About"
 import ContactUs from "./components/ContactUs"
 import ListDevices from './components/Devices';
+import ListApplications from "./components/Applications";
 
 const App = props => {
   return (
@@ -18,6 +19,7 @@ const App = props => {
         <Route path="about" element={ <About/> } />
         <Route path="contactus" element={ <ContactUs/> } />
         <Route path="listdevices" element={ <ListDevices/> } />
+        <Route path="listapplications" element={ <ListApplications/> } />
       </Routes>
     </div>
   )

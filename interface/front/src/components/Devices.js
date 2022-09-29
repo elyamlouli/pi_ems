@@ -45,8 +45,6 @@ const ListDevices = () => {
       <Link to="/">Home</Link>,
       <Link to="/listapplications">Back</Link>
       <h1>Devices Page</h1>
-    </div>,
-    <div>
       <ul>
         {devicesList.map(item => (
           <ListItem key={item.devEUI} item={item} />

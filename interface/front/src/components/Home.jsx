@@ -1,10 +1,9 @@
-// importing Link from react-router-dom to navigate to 
-// different end points.
 const { Link } = require("react-router-dom");
   
 const Home = () => {
   return (
     <div>
+      <Link to="/login">Login</Link>
       <h1>Home Page</h1>
       <br />
       <ul>
@@ -13,12 +12,12 @@ const Home = () => {
           <Link to="/about">About</Link>
         </li>
         <li>
-            {/* Endpoint to route to LoginForm component */}
-            <Link to="/devices">Devices List</Link>
+            {/* Endpoint to route to Devices List component */}
+            <Link to="/listdevices">Devices List</Link>
         </li>
         <li>
           {/* Endpoint to route to Contact Us component */}
-          <Link to="/contact">Contact Us</Link>
+          <Link to="/contactus">Contact Us</Link>
         </li>
       </ul>
     </div>

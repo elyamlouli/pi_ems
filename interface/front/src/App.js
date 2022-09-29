@@ -12,9 +12,8 @@ import ListDevices from './components/Devices';
 const App = props => {
   return (
     <div className="App">
-      <LoginForm />
       <Routes>
-      <Route path="login" element={ <LoginForm/> } />
+        <Route path="login" element={ <LoginForm/> } />
         <Route path="/" element={ <Home/> } />
         <Route path="about" element={ <About/> } />
         <Route path="contactus" element={ <ContactUs/> } />

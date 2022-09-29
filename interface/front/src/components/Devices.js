@@ -1,67 +1,59 @@
-import Button from "./Button";
-const { Link, redirect } = require("react-router-dom");
+import { useState , useEffect} from "react";
+import { get_devices, new_nfc_card } from "./fetchData";
+const { Link, useLocation } = require("react-router-dom");
 
-/*
-    Faire liste applications => liste devices comme sur Chirpstack */
 
-const ListDevices = (props) => {
-    return (
-        <div>
-            <Link to="/">Home</Link>, 
-            <Link to="/listapplications">Back</Link>
-            <h1>Devices Page</h1>
-            <Button title="Add new device" />
-            <Button title="Get list of devices" onClick={get_devices} />
-        </div>
+// Pour chaque item de la liste, on en sort son id, name et description
+const ListItem = ({ item }) => {
+  const [nfcUID, setNfcUID] = useState('')
+  const addCard = async () => {
+    const sended = await new_nfc_card(item.devEUI, nfcUID);
+    if (sended) {
+      alert('sended')
+    } else {
+      alert('not sended')
+    }
+  }
+  return (
+      <li>
+        <div><Link to="/listdevices">{item.id}</Link></div>
+        <div>{item.devEUI}</div>
+        <div>{item.name}</div>
+        <div>{item.applicationID}</div>
+        <div>{item.description}</div>
+        <input type="text" onChange={(event => setNfcUID(event.target.value))} ></input>
+        <button onClick={addCard}>Add new NFC card</button>
+      </li>
     );
-};
-
-async function get_devices() {
-    const url = 'http://localhost:5000/api/devices/?';
-    const api_key = document.getElementById('api-key').value;
-    const application_id = document.getElementById('application-id').value;
-
-    try {
-        const response = await get_req(api_key, url + new URLSearchParams({
-            application: application_id,
-        }));
-        const data = await response.json();
-        if (response.ok) {
-            update_list('list-devices', 'set_device(this)', data, 'devEUI');
-        } else {
-            alert(data.message);
-        }
-    } catch (e) {
-        console.log(e);
-    }
-};
+} 
 
 
-async function get_req(api_key, url) {
-    return await fetch(url, {
-        method: 'GET',
-        headers: {
-            'Authorization': 'Bearer ' + api_key
-        },
-        mode: 'cors',
-        cache: 'default',
-        credentials: 'same-origin',
-    });
-};
+const ListDevices = () => {
+  const location = useLocation();
+  const [devicesList, setDevicesList] = useState([]);
 
+  useEffect(() => {
+    const f = async () => {
+      const l = await get_devices(location.state.id);
+      setDevicesList(l);
+    };
+    f().catch((e) => console.log(e));
+  }, []);
 
-function update_list(list_id, onclick_attr, data, name) {
-    let ul = document.getElementById(list_id);
-    ul.innerHTML = '';
-    let doc_frag = document.createDocumentFragment();
-    let l = data.result;
-    for (const obj of l) {
-        let li = document.createElement('li');
-        li.appendChild(document.createTextNode(obj[name]));
-        li.setAttribute('onclick', onclick_attr);
-        doc_frag.appendChild(li);
-    }
-    ul.appendChild(doc_frag);
+  return (
+    <div>
+      <Link to="/">Home</Link>,
+      <Link to="/listapplications">Back</Link>
+      <h1>Devices Page</h1>
+    </div>,
+    <div>
+      <ul>
+        {devicesList.map(item => (
+          <ListItem key={item.devEUI} item={item} />
+        ))}
+      </ul>
+    </div>
+  );
 };
 
 

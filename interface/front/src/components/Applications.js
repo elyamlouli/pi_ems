@@ -1,26 +1,41 @@
-import Button from "./Button";
-const { Link, useNavigate } = require("react-router-dom");
+import { useEffect, useState } from "react";
+import { get_applications } from "./fetchData";
+const { Link } = require("react-router-dom");
 
-// faire une liste d'application qui redirige vers la liste des devices associés
 
+
+// Pour chaque item de la liste, on en sort son id, name et description
+const ListItem = ({ item }) => (
+  <li>
+    <div><Link to={"listdevices"}
+      state={{id:item.id}}
+    >{item.id}</Link></div>
+    <div>{item.name}</div>
+    <div>{item.description}</div>
+  </li>
+);
 
 const ListApplications = () => {
-  const navigate = useNavigate()
+  const [appList, setAppList] = useState([]);
 
-  const showDevices = () => {
-    navigate("/listapplications/listdevices");
+  useEffect(() => {
+    const f = async () => {
+      const l = await get_applications();
+      setAppList(l);
     };
-  
+    f().catch((e) => console.log(e));
+  }, []);
 
   return (
     <div>
-      <Link to="/">Home</Link>, 
+      <Link to="/">Home</Link>,
       <Link to="/login">Login</Link>
       <h1>Applications</h1>
-      <button onClick={showDevices}>Device 1</button>
-      <button onClick={showDevices}>Device 2</button>
-      <button onClick={showDevices}>Device 3</button>
-      <button onClick={showDevices}>Device 4</button>
+      <ul>
+        {appList.map(item => (
+          <ListItem key={item.id} item={item} />
+        ))}
+      </ul>
     </div>
   );
 };

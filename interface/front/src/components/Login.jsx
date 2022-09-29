@@ -29,21 +29,21 @@ const Form = props => {
     <div>
       <FormInput description="Email" placeholder="Enter your email" type="email" onChange={handleChange(setEmail)} />
       <FormInput description="Password" placeholder="Enter your password" type="password" onChange={handleChange(setPassword)} />
-      <FormButton title="Log in" onClick={get_key(email, password)} />
+      <FormButton title="Log in" onClick={() => get_key(email, password)} />
     </div>
   );
 };
   
 const FormButton = props => (
   <div id="button" className="row">
-    <button>{props.title}</button>
+    <button onClick={props.onClick}>{props.title}</button>
   </div>
 );
   
 const FormInput = props => (
   <div className="row">
     <label>{props.description}</label>
-    <input type={props.type} placeholder={props.placeholder}/>
+    <input type={props.type} placeholder={props.placeholder} onChange={props.onChange}/>
   </div>  
 );
 
@@ -51,8 +51,8 @@ const FormInput = props => (
 async function get_key(email, password) {
   const url = 'http://localhost:5000/api/sessions/';
   const body = {
-      email,
-      password
+      email: email,
+      password: password
   };
   try {
     const response = await fetch(url, {
@@ -68,7 +68,7 @@ async function get_key(email, password) {
     });
     const data = await response.json();
     if (response.ok) {
-      document.getElementById('api-key').value = data.jwt;
+      console.log(data);
     } else {
       alert(data.message);
     }

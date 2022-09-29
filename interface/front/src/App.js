@@ -18,8 +18,8 @@ const App = props => {
         <Route path="/" element={ <Home/> } />
         <Route path="about" element={ <About/> } />
         <Route path="contactus" element={ <ContactUs/> } />
-        <Route path="listdevices" element={ <ListDevices/> } />
         <Route path="listapplications" element={ <ListApplications/> } />
+        <Route path="/listapplications/listdevices" element={ <ListDevices/> } />
       </Routes>
     </div>
   )

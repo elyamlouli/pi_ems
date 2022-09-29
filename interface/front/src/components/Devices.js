@@ -1,5 +1,5 @@
 import Button from "./Button";
-const { Link } = require("react-router-dom");
+const { Link, redirect } = require("react-router-dom");
 
 /*
     Faire liste applications => liste devices comme sur Chirpstack */
@@ -7,7 +7,8 @@ const { Link } = require("react-router-dom");
 const ListDevices = (props) => {
     return (
         <div>
-            <Link to="/">Home</Link>
+            <Link to="/">Home</Link>, 
+            <Link to="/listapplications">Back</Link>
             <h1>Devices Page</h1>
             <Button title="Add new device" />
             <Button title="Get list of devices" onClick={get_devices} />

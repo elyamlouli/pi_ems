@@ -15,6 +15,6 @@ router.get('/api/sessions', requireUser, getSessionsHandler);
 
 router.delete('/api/sessions', requireUser, deleteSessionHandler);
 
-router.post('/api/sessions/refresh', refreshAccessTokenHandler);
+router.post('/api/sessions/refresh', requireUser,refreshAccessTokenHandler);
 
 export default router;
